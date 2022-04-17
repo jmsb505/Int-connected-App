@@ -12,17 +12,20 @@ import java.util.Map;
 public class Data {
     private ArrayList<Picture> dataPic;
     private Map<String, Bitmap> cache;
+    private Map<String, Bitmap> cacheBigPics;
     private static Data instancia=new Data();
     public static Data getInstance(){return instancia;}
     private Data()
     {
         dataPic=new ArrayList<>();
         cache=new HashMap<>();
+        cacheBigPics=new HashMap<>();
     }
     public void clearDataSet()
     {
         dataPic.clear();
         cache.clear();
+        cacheBigPics.clear();
     }
     public ArrayList<Picture> getdataPic()
     {
@@ -36,10 +39,16 @@ public class Data {
     {
         cache.put(url,bmap);
     }
-
+    public void addtoBigPicsCache(String url,Bitmap bmap)
+    {
+        cacheBigPics.put(url,bmap);
+    }
 
     public Map<String, Bitmap> getCache() {
         return cache;
+    }
+    public Map<String, Bitmap> getBigPicsCache() {
+        return cacheBigPics;
     }
 
     public String getName(int index) {

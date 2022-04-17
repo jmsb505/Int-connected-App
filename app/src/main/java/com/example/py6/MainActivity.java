@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         listaImagenes=(ListView) findViewById(R.id.listV);
         adaptador=new Adapter(this,data.getdataPic());
         listaImagenes.setAdapter(adaptador);
+
         GetImageTask taskInicial=new GetImageTask();
         try {
             URL url=new URL("https://esahubble.org/images/archive/category/galaxies/?");
@@ -76,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
                         e.printStackTrace();
                     }
-                    int upperIndex=builder.indexOf("var images");
-                    int lowerIndex=builder.indexOf("];",upperIndex);
-                    String jsonSub=builder.substring(upperIndex,lowerIndex);//Substring de todas las iamgenes sin contar variable var
+                    int inicio=builder.indexOf("var images");
+                    int fin=builder.indexOf("];",inicio);
+                    String jsonSub=builder.substring(inicio,fin);//Substring de todas las iamgenes sin contar variable var
                     String jsonFinal="{\"var images\": ["+ jsonSub.substring(jsonSub.indexOf('{'), jsonSub.lastIndexOf('}') + 1) + "]}";//Construccion de string que pueda ser JSON
                     return new JSONObject(jsonFinal);
 

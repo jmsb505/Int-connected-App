@@ -1,10 +1,12 @@
 package com.example.py6;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
@@ -56,7 +58,7 @@ class Adapter extends ArrayAdapter<Picture> {
         {
             viewHolder.iconoImagen.setImageBitmap(instance.getCache().get(item.getimageUrl()));
             counter++;
-            System.out.println(counter);//Para ver si se esta cargando en cache [rueba
+            System.out.println(counter);//Para ver si se esta cargando en cache prueba
         }
         else
         {
@@ -68,6 +70,20 @@ class Adapter extends ArrayAdapter<Picture> {
         temps.setSpan(new StyleSpan(Typeface.BOLD),0,temps.length(),0);
         viewHolder.title.setText(temps);
         viewHolder.title.append("\n"+item.getimageUrl());
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            String urlInicial=item.getimageUrl();
+            String urlFinal=urlInicial.replaceAll("thumb300y","large");
+            Intent intent=new Intent(view.getContext(),PicActivity.class);
+            Bundle extras=new Bundle();
+            extras.putString("siteUrl",urlFinal);
+            extras.putString("titlePic",item.getTitle());
+            intent.putExtras(extras);
+            view.getContext().startActivity(intent);
+
+            }
+        });
         return convertView;
 
 
