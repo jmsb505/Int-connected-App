@@ -1,34 +1,50 @@
 package com.example.py6;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Data {
-    public static Data data= new Data();
-    ArrayList<ImageView> thumb=new ArrayList<>();
-    ArrayList<ImageView> large=new ArrayList<>();
-    ArrayList<String> titles=new ArrayList<>();
-    ArrayList<String> descriptions=new ArrayList<>();
-    private Data(){
-
+    private ArrayList<Picture> dataPic;
+    private Map<String, Bitmap> cache;
+    private static Data instancia=new Data();
+    public static Data getInstance(){return instancia;}
+    private Data()
+    {
+        dataPic=new ArrayList<>();
+        cache=new HashMap<>();
+    }
+    public void clearDataSet()
+    {
+        dataPic.clear();
+        cache.clear();
+    }
+    public ArrayList<Picture> getdataPic()
+    {
+        return dataPic;
+    }
+    public void addPicture(String title,String url)
+    {
+        dataPic.add(new Picture(title,url));
+    }
+    public void addtoCache(String url,Bitmap bmap)
+    {
+        cache.put(url,bmap);
     }
 
 
-    public static Data getInstance() {
-        return data;
+    public Map<String, Bitmap> getCache() {
+        return cache;
     }
 
-    public ImageView getLargeAt(int i) {
-        return large.get(i);
+    public String getName(int index) {
+        return dataPic.get(index).getTitle();
     }
-    public ImageView getThumbAt(int i) {
-        return thumb.get(i);
-    }
-    public String getTitleAt(int i) {
-        return titles.get(i);
-    }
-    public String getDescriptionAt(int i) {
-        return descriptions.get(i);
-    }
+
+
 }
