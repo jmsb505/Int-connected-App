@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 String titulo=singleImage.getString("title");
                 String url=singleImage.getString("src");
                 data.addPicture(titulo,url);
+                data.addToDataMap(titulo,new Picture(titulo,url));
 
 
             }
